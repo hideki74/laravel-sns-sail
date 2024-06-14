@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\RankingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,11 @@ Route::prefix('users')->name('users.')->group( function (){
         Route::put('/{name}/follow', [UserController::class, 'follow'])->name('follow');
         Route::delete('/{name}/follow', [UserController::class, 'unfollow'])->name('unfollow');
     });
+});
+
+Route::prefix('rankings')->name('rankings.')->group(function() {
+    Route::get('/', [RankingController::class, 'article'])->name('article');
+    Route::get('/article', [RankingController::class, 'article'])->name('article');
+    Route::get('/follower', [RankingController::class, 'follower'])->name('follower');
+    Route::get('/like', [RankingController::class, 'like'])->name('like');
 });
