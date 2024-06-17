@@ -19,11 +19,11 @@ class Article extends Model
     ];
 
     public function user(): BelongsTo {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     public function likes(): BelongsToMany {
-        return $this->belongsToMany('App\Models\User', 'likes')->withTimestamps();
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
     }
 
     public function isLikedBy(?User $user):bool {
@@ -36,7 +36,7 @@ class Article extends Model
     }
 
     public function tags(): BelongsToMany {
-        return $this->belongsToMany('App\Models\Tag')->withTimestamps();
+        return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
     public static function order(?Request $request, ?Collection $collection = null) {
