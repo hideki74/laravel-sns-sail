@@ -20,7 +20,7 @@ import ArticleLike from './components/ArticleLike.vue'
 import ArticleTagsInput from './components/ArticleTagsInput.vue'
 import FollowButton from './components/FollowButton.vue'
 app.component('example-component', ExampleComponent);
-app.component('atricle-like', ArticleLike);
+app.component('article-like', ArticleLike);
 app.component('article-tags-input', ArticleTagsInput);
 app.component('follow-button', FollowButton);
 
