@@ -1,11 +1,11 @@
 <template>
   <button type="button" class="btn m-0 p-1 shadow-none">
-      <i class="fas fa-heart mr-1"
-      :class="{'red-text':this.isLikedBy, 'animated heartBeat fast':this.gotToLike}"
+      <i class="fas fa-bookmark mr-1"
+      :class="{'blue-text':this.isLikedBy, 'animated tada':this.gotToLike}"
       @click="clickLike"
       ></i>
       {{ countLikes }}
-    </button>
+  </button>
 </template>
 
 <script>
