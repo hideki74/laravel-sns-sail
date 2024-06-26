@@ -32,6 +32,15 @@ class ArticleController extends Controller
         return view('articles.following', compact('articles', 'sort_jp'));
     }
 
+    public function bookmarks(Request $request) {
+        $following_ids = Follow::followingIDs(Auth::id());
+        $articles = Article::whereIn('user_id', $following_ids)->get()->load(['user', 'likes', 'tags']);
+        $articles = Article::order($request, $articles);
+        $sort_jp = $this->getSortJp($request);
+
+        return view('articles.bookmarks', compact('articles', 'sort_jp'));
+    }
+
     public function create() {
         $allTagNames = Tag::all()->map(function ($tag) {
             return ['text' => $tag->name];

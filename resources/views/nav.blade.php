@@ -1,22 +1,23 @@
 <nav class="navbar navbar-expand navbar-dark blue-gradient">
 
-  <a class="navbar-brand" href="/"><i class="far fa-sticky-note mr-1"></i>memo</a>
+  <a class="navbar-brand" href="/"><i class="far fa-sticky-note mr-1 pl-3"></i>memo</a>
 
+  
   <ul class="navbar-nav ml-auto">
-    @isset($sort_jp)
-      <div class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-sort-amount-down"></i>{{ $sort_jp }}
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="{{ url()->current() }}?sort=created_at&order=desc">投稿日（新しい順）</a>
-          <a class="dropdown-item" href="{{ url()->current() }}?sort=created_at&order=asc">投稿日（古い順）</a>
-          <a class="dropdown-item" href="{{ url()->current() }}?sort=likes&order=desc">いいね数（多い順）</a>
-          <a class="dropdown-item" href="{{ url()->current() }}?sort=likes&order=asc">いいね数（少ない順）</a>
-        </div>
-      </div>
-    @endisset
     
+    @isset($sort_jp)
+    <div class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-sort-amount-down"></i>{{ $sort_jp }}
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{ url()->current() }}?sort=created_at&order=desc">投稿日（新しい順）</a>
+        <a class="dropdown-item" href="{{ url()->current() }}?sort=created_at&order=asc">投稿日（古い順）</a>
+        <a class="dropdown-item" href="{{ url()->current() }}?sort=likes&order=desc">いいね数（多い順）</a>
+        <a class="dropdown-item" href="{{ url()->current() }}?sort=likes&order=asc">いいね数（少ない順）</a>
+      </div>
+    </div>
+    @endisset
     
     <li class="nav-item">
       <a class="nav-link" href="/rankings/article"><i class='fas fa-award mr-1'></i>ランキング</a>
@@ -27,13 +28,19 @@
       <a class="nav-link" href="{{ route('register') }}">ユーザー登録</a>
     </li>
     @endguest
-
+    
     @guest
     <li class="nav-item">
       <a class="nav-link" href="{{ route('login') }}">ログイン</a>
     </li>
     @endguest
-
+    
+    @auth
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('articles.bookmarks') }}"><i class="fas fa-bookmark mr-1"></i>ブックマーク</a>
+    </li>
+    @endauth
+    
     @auth
     <li class="nav-item">
       <a class="nav-link" href="{{ route('articles.create') }}"><i class="fas fa-pen mr-1"></i>投稿する</a>

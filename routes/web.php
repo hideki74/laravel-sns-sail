@@ -14,6 +14,7 @@ Auth::routes();
 Route::get('/', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/following', [ArticleController::class, 'following'])->name('articles.following')->middleware('auth');
+Route::get('/bookmarks', [ArticleController::class, 'bookmarks'])->name('articles.bookmarks')->middleware('auth');
 Route::resource('/articles', ArticleController::class)->except(['index', 'show'])->middleware('auth');
 Route::resource('/articles',  ArticleController::class)->only(['show']);
 Route::prefix('/articles')->name('articles.')->group(function() {
