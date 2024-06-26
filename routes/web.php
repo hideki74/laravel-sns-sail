@@ -20,6 +20,8 @@ Route::resource('/articles',  ArticleController::class)->only(['show']);
 Route::prefix('/articles')->name('articles.')->group(function() {
     Route::put('/{article}/like', [ArticleController::class, 'like'])->name('like')->middleware('auth');
     Route::delete('/{article}/like', [ArticleController::class, 'unlike'])->name('unlike')->middleware('auth');
+    Route::put('/{article}/bookmark', [ArticleController::class, 'bookmark'])->name('bookmark')->middleware('auth');
+    Route::delete('/{article}/bookmark', [ArticleController::class, 'unBookmark'])->name('unBookmark')->middleware('auth');
 });
 
 Route::prefix('users')->name('users.')->group( function (){

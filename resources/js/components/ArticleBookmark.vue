@@ -2,7 +2,7 @@
   <button type="button" class="btn m-0 p-1 shadow-none">
       <i class="fas fa-bookmark mr-1"
       :class="{'blue-text':this.isLikedBy, 'animated tada':this.gotToLike}"
-      @click="clickLike"
+      @click="clickBookmark"
       ></i>
       {{ countLikes }}
   </button>
@@ -35,9 +35,9 @@ export default {
         }
     },
     methods: {
-        clickLike() {
+        clickBookmark() {
             if(!this.authorized) {
-                alert('いいね機能はログイン中のみ使用できます');
+                alert('ブックマーク機能はログイン中のみ使用できます');
                 return;
             }
 
