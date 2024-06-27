@@ -1,21 +1,21 @@
 <template>
   <button type="button" class="btn m-0 p-1 shadow-none">
       <i class="fas fa-bookmark mr-1"
-      :class="{'blue-text':this.isLikedBy, 'animated tada':this.gotToLike}"
+      :class="{'blue-text':this.isBookmarkedBy, 'animated tada':this.gotToBookmark}"
       @click="clickBookmark"
       ></i>
-      {{ countLikes }}
+      {{ countBookmarks }}
   </button>
 </template>
 
 <script>
 export default {
     props: {
-        initialIsLikedBy: {
+        initialIsBookmarkedBy: {
             type: Boolean,
             default: false,
         },
-        initialCountLikes: {
+        initialCountBookmarks: {
             type: Number,
             default: 0,
         },
@@ -29,9 +29,9 @@ export default {
     },
     data() {
         return {
-            isLikedBy: this.initialIsLikedBy,
-            countLikes: this.initialCountLikes,
-            gotToLike: false,
+            isBookmarkedBy: this.initialIsBookmarkedBy,
+            countBookmarks: this.initialCountBookmarks,
+            gotToBookmark: false,
         }
     },
     methods: {
@@ -41,21 +41,21 @@ export default {
                 return;
             }
 
-            this.isLikedBy ? this.unlike() : this.like();
+            this.isBookmarkedBy ? this.unBookmark() : this.bookmark();
         },
 
-        async like() {
+        async bookmark() {
             const response = await axios.put(this.endpoint);
-            this.isLikedBy = true;
-            this.countLikes = response.data.countLikes;
-            this.gotToLike = true;
+            this.isBookmarkedBy = true;
+            this.countBookmarks = response.data.countBookmarks;
+            this.gotToBookmark = true;
         },
 
-        async unlike() {
+        async unBookmark() {
             const response = await axios.delete(this.endpoint);
-            this.isLikedBy = false;
-            this.countLikes = response.data.countLikes;
-            this.gotToLike = false;
+            this.isBookmarkedBy = false;
+            this.countBookmarks = response.data.countBookmarks;
+            this.gotToBookmark = false;
         },
     },
 }

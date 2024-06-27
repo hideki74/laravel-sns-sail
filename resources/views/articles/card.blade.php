@@ -80,10 +80,10 @@
       >
       </article-like>
       <article-bookmark
-      :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))'
-      :initial-count-likes='@json($article->count_likes)'
+      :initial-is-bookmarked-by='@json($article->isBookmarkedBy(Auth::user()))'
+      :initial-count-bookmarks='@json($article->count_bookmarks)'
       :authorized='@json(Auth::check())'
-      endpoint="{{ route('articles.like', compact('article'))}}"
+      endpoint="{{ route('articles.bookmark', compact('article'))}}"
       >
       </article-bookmark>
     </div>
