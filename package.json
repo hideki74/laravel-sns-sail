@@ -16,5 +16,9 @@
         "vite": "^5.0",
         "vue": "^3.2.37",
         "vue-template-compiler": "^2.6.11"
+    },
+    "dependencies": {
+        "vuedraggable": "^2.24.3",
+        "vuex": "^4.1.0"
     }
 }

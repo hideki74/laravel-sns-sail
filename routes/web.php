@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\RankingController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
@@ -15,6 +16,7 @@ Route::get('/', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/following', [ArticleController::class, 'following'])->name('articles.following')->middleware('auth');
 Route::get('/bookmarks', [ArticleController::class, 'bookmarks'])->name('articles.bookmarks')->middleware('auth');
+Route::get('/cards', [CardController::class, 'index'])->name('cards.index')->middleware('auth');
 Route::resource('/articles', ArticleController::class)->except(['index', 'show'])->middleware('auth');
 Route::resource('/articles',  ArticleController::class)->only(['show']);
 Route::prefix('/articles')->name('articles.')->group(function() {
