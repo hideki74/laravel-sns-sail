@@ -13,12 +13,15 @@ Auth::routes();
 
 Route::get('/', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/following', [ArticleController::class, 'following'])->name('articles.following')->middleware('auth');
+Route::get('/bookmarks', [ArticleController::class, 'bookmarks'])->name('articles.bookmarks')->middleware('auth');
 Route::resource('/articles', ArticleController::class)->except(['index', 'show'])->middleware('auth');
 Route::resource('/articles',  ArticleController::class)->only(['show']);
 Route::prefix('/articles')->name('articles.')->group(function() {
-    Route::get('/{name}/following', [ArticleController::class, 'following'])->name('following')->middleware('auth');
     Route::put('/{article}/like', [ArticleController::class, 'like'])->name('like')->middleware('auth');
     Route::delete('/{article}/like', [ArticleController::class, 'unlike'])->name('unlike')->middleware('auth');
+    Route::put('/{article}/bookmark', [ArticleController::class, 'bookmark'])->name('bookmark')->middleware('auth');
+    Route::delete('/{article}/bookmark', [ArticleController::class, 'unBookmark'])->name('unBookmark')->middleware('auth');
 });
 
 Route::prefix('users')->name('users.')->group( function (){

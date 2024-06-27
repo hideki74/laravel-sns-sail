@@ -8,7 +8,7 @@
   @auth
   <li class="nav-item">
     <a class="nav-link text-muted {{ $following ? 'active' : '' }}"
-      href="{{ route("articles.following", ["name" => Auth::user()->name]) }}">
+      href="{{ route("articles.following") }}">
       フォロー中
     </a>
   </li>

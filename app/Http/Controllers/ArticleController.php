@@ -6,6 +6,7 @@ use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Follow;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,6 +31,15 @@ class ArticleController extends Controller
         $sort_jp = $this->getSortJp($request);
 
         return view('articles.following', compact('articles', 'sort_jp'));
+    }
+
+    public function bookmarks(Request $request) {
+        $user = User::where('id', Auth::id())->first();
+        $articles = $user->bookmarks;
+        $articles = Article::order($request, $articles);
+        $sort_jp = $this->getSortJp($request);
+
+        return view('articles.bookmarks', compact('articles', 'sort_jp'));
     }
 
     public function create() {
@@ -101,6 +111,25 @@ class ArticleController extends Controller
         return [
             'id' => $article->id,
             'countLikes' => $article->count_likes,
+        ];
+    }
+
+    public function bookmark(Request $request, Article $article) {
+        $article->bookmarks()->detach($request->user()->id);
+        $article->bookmarks()->attach($request->user()->id);
+
+        return [
+            'id' => $article->id,
+            'countBookmarks' => $article->count_bookmarks,
+        ];
+    }
+
+    public function unBookmark(Request $request, Article $article) {
+        $article->bookmarks()->detach($request->user()->id);
+
+        return [
+            'id' => $article->id,
+            'countBookmarks' => $article->count_bookmarks,
         ];
     }
 }

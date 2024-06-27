@@ -17,12 +17,14 @@ const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
 import ArticleLike from './components/ArticleLike.vue'
+import ArticleBookmark from './components/ArticleBookmark.vue';
 import ArticleTagsInput from './components/ArticleTagsInput.vue'
 import FollowButton from './components/FollowButton.vue'
 app.component('example-component', ExampleComponent);
 app.component('article-like', ArticleLike);
 app.component('article-tags-input', ArticleTagsInput);
 app.component('follow-button', FollowButton);
+app.component('article-bookmark', ArticleBookmark);
 
 /**
  * The following block of code may be used to automatically register your
