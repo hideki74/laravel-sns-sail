@@ -57,9 +57,7 @@ main {
 
 
 
-.active .text-input {
-  background-color: #fff;
-}
+
 .addable .add-button {
   background-color: #00d78f;
   pointer-events: auto;
