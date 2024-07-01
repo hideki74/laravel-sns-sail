@@ -7,7 +7,9 @@
     @focusin="startEditing"
     @focusout="finishEditing"
   >
-  <button type="submit" class="add-button">
+  <button type="submit" class="add-button"
+    v-if="isEditing || titleExists"  
+  >
   Add
   </button>
   </form>
@@ -23,7 +25,7 @@ export default {
   },
   methods: {
     addList() {
-      this.$store.dispatch('addlist', { title: this.title })
+      this.$store.dispatch('addList', { title: this.title })
       this.title = ''
     },
     startEditing() {
@@ -39,7 +41,14 @@ export default {
       if (this.isEditing) {
         classList.push('active')
       }
+
+      if (this.titleExists) {
+        classList.push('addable')
+      }
       return classList
+    },
+    titleExists() {
+      return this.title.length > 0;
     }
   }
 }
@@ -94,6 +103,12 @@ export default {
 
 .add-button:hover {
   opacity: 0.8;
+  cursor: pointer;
+}
+
+.addable .add-button {
+  background-color: #00d78f;
+  pointer-events: auto;
   cursor: pointer;
 }
 </style>

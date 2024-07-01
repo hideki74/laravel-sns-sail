@@ -2,18 +2,33 @@
   <div>
     <main>
       <p class="info-line">All: 0 tasks</p>
-      <list-add />
+      <div class="list-index">
+        <list v-for="(item, index) in lists"
+              :key="item.id"
+              :title="item.title"
+              :listIndex="index"
+        />
+        <list-add />
+      </div>
     </main>
   </div>
 </template>
   
 <script>
 import ListAdd from './ListAdd.vue'
+import List from './List.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
-    ListAdd
+    ListAdd,
+    List
   },
+  computed: {
+    ...mapState([
+      'lists'
+    ])
+  }
 }
 </script>
 
@@ -68,50 +83,6 @@ main {
   background-color: #00d78f;
 }
 
-.list {
-  margin: 0 5px auto;
-  position: relative;
-  display: inline-block;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 290px;
-  width: 290px;
-  background-color: #e0e0e0;
-  border-radius: 8px;
-  padding: 15px;
-  border: solid #ddd 1px;
-  color: gray;
-  vertical-align: top;
-}
-
-.listheader {
-  width: 290px;
-  display: inline-flex;
-  justify-content: space-between;
-}
-
-.list-title {
-  font-size: 20px;
-  font-weight: bold;
-  padding: 15px;
-}
-
-.list-counter {
-  color: rgb(0, 140, 255);
-  padding: 15px;
-}
-
-.deletelist {
-  position: absolute;
-  top: 6px;
-  right: 14px;
-  font-size: 28px;
-}
-
-.deletelist:hover {
-  opacity: 0.8;
-  cursor: pointer;
-}
 
 .card {
   margin-top: 10px;
