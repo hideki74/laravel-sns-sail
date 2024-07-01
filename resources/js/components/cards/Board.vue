@@ -1,11 +1,12 @@
 <template>
   <div>
     <main>
-      <p class="info-line">All: 0 tasks</p>
+      <p class="info-line">All: {{ totalCardCount }} tasks</p>
       <div class="list-index">
         <list v-for="(item, index) in lists"
               :key="item.id"
               :title="item.title"
+              :cards="item.cards"
               :listIndex="index"
         />
         <list-add />
@@ -27,13 +28,16 @@ export default {
   computed: {
     ...mapState([
       'lists'
-    ])
+    ]),
+    totalCardCount() {
+      return this.$store.getters.totalCardCount
+    }
   }
 }
 </script>
 
 <style scoped>
-html {
+/* html {
   font-family: 'Avenir', Helvetica, Arial, 'system-ui', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -56,7 +60,7 @@ main {
   padding: 0 10px;
   width: calc(100% - 40px);
   height: 100%;
-}
+} */
 
 .info-line {
   margin: 20px;
@@ -67,62 +71,9 @@ main {
   display: flex;
 }
 
-
-
-
-
-
-
-.addable .add-button {
-  background-color: #00d78f;
-  pointer-events: auto;
-  cursor: pointer;
-}
-
-.add-button:active {
-  background-color: #00d78f;
-}
-
-
-.card {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  position: relative;
-  display: flex;
-  padding: 30px 15px 40px;
-  background-color: #fff;
-  border-radius: 8px;
-  width: 260px;
-  cursor: pointer;
-}
-
-.close-button {
-  position: absolute;
-  top: 6px;
-  right: 15px;
-  font-size: 22px;
-  cursor: pointer;
-  border-radius: 8px;
-  border-color: red;
-  border-style: solid;
-  background-color: red;
-  color: white;
-  margin: 5px;
-}
-
-.body {
+/* .body {
   font-size: 18px;
   width: 100%;
   word-wrap: break-word;
-}
-
-.active .text-input {
-  background-color: #fff;
-}
-
-.addable .add-button {
-  background-color: #00d78f;
-  pointer-events: auto;
-  cursor: pointer;
-}
+} */
 </style>

@@ -30,7 +30,13 @@ export const store = createStore({
     },
     removeList(state, payload) {
         state.lists.splice(payload.listIndex, 1);
-    }
+    },
+    addCardToList(state, payload) {
+        state.lists[payload.listIndex].cards.push({ body: payload.body });
+    },
+    removeCardFromList(state, payload) {
+        state.lists[payload.listIndex].cards.splice(payload.cardIndex, 1)
+    },
   },
   actions: {
     addList(context, payload) {
@@ -38,9 +44,20 @@ export const store = createStore({
     },
     removeList(context, payload) {
         context.commit('removeList', payload);
-    }
+    },
+    addCardToList(context, payload) {
+        context.commit('addCardToList', payload)
+    },
+    removeCardFromList(context, payload) {
+        context.commit('removeCardFromList', payload)
+    },
   },
   getters: {
+    totalCardCount(state) {
+        let count = 0
+        state.lists.map(content => count += content.cards.length)
+        return count
+    },
   }
 })
 
