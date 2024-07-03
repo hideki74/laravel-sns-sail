@@ -60,6 +60,12 @@ main {
   padding: 0 10px;
   width: calc(100% - 40px);
   height: 100%;
+}
+
+.body {
+  font-size: 18px;
+  width: 100%;
+  word-wrap: break-word;
 } */
 
 .info-line {
@@ -71,9 +77,4 @@ main {
   display: flex;
 }
 
-/* .body {
-  font-size: 18px;
-  width: 100%;
-  word-wrap: break-word;
-} */
 </style>
