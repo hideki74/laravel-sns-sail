@@ -1,30 +1,13 @@
 import{ createStore } from 'vuex'
 
-const savedLists = localStorage.getItem('trello-lists')
-
 export const store = createStore({
   state: {
-    lists: savedLists ? JSON.parse(savedLists): [
-        {
-          title: 'Backlog',
-          cards: [
-            { body: 'English' },
-            { body: 'Mathematics' },
-          ]
-        },
-        {
-          title: 'Todo',
-          cards: [
-            { body: 'Science' }
-          ]
-        },
-        {
-          title: 'Doing',
-          cards: []
-        }
-    ],
+    lists: []
   },
   mutations: {
+    init(state, payload) {
+        state.lists = payload.lists;
+    },
     addList(state, payload) {
         state.lists.push({ title: payload.title, cards:[] })
     },
@@ -42,6 +25,9 @@ export const store = createStore({
     }
   },
   actions: {
+    init(context, payload) {
+        context.commit('init', payload);
+    },
     addList(context, payload) {
         context.commit('addList', payload)
     },

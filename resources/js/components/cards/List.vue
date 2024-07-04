@@ -5,7 +5,7 @@
       <p class="list-counter">total: {{ totalCardInList }}</p>
       <div class="deletelist" @click="removeList">×</div>
     </div>
-    <draggable group="cards" :list="cards" @end="$emit('change')">
+    <draggable group="cards" item-key="key" :list="cards" @end="$emit('change')">
       <template #item="{element, index}">
         <card 
           :body="element.body"
@@ -42,6 +42,10 @@ export default {
     listIndex: {
       type: Number,
       required: true
+    },
+    cards_json: {
+      type: Object,
+      required: true
     }
   },
   methods: {
@@ -54,14 +58,6 @@ export default {
   computed: {
     totalCardInList() {
       return this.cards.length
-    },
-    cardsArray: {
-      get() {
-        return this.cards;
-      },
-      set(value) {
-        this.$emit("update:cards", value);
-      },
     },
   },
 }

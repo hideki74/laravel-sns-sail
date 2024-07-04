@@ -8,6 +8,7 @@
     "devDependencies": {
         "@johmun/vue-tags-input": "^2.1.0",
         "@popperjs/core": "^2.11.6",
+        "@types/mysql": "^2.15.26",
         "@vitejs/plugin-vue": "^4.5.0",
         "axios": "^1.6.4",
         "bootstrap": "^5.2.3",
@@ -19,6 +20,7 @@
         "vuedraggable": "^4.1.0"
     },
     "dependencies": {
+        "mysql": "^2.18.1",
         "vuex": "^4.1.0"
     }
 }

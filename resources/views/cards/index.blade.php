@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'カードメモ')
+@section('title', 'メモカード')
 
 @section('content')
   @include('nav')
@@ -8,7 +8,7 @@
     <li class="nav-item">
       <a class="nav-link text-muted"
         href="">
-        カード
+        メモカード
       </a>
     </li>
   </ul>

@@ -17,6 +17,7 @@ Route::get('/articles', [ArticleController::class, 'index'])->name('articles.ind
 Route::get('/following', [ArticleController::class, 'following'])->name('articles.following')->middleware('auth');
 Route::get('/bookmarks', [ArticleController::class, 'bookmarks'])->name('articles.bookmarks')->middleware('auth');
 Route::get('/cards', [CardController::class, 'index'])->name('cards.index')->middleware('auth');
+Route::post('/cards', [CardController::class, 'getJson'])->name('cards.getJson')->middleware('auth');
 Route::resource('/articles', ArticleController::class)->except(['index', 'show'])->middleware('auth');
 Route::resource('/articles',  ArticleController::class)->only(['show']);
 Route::prefix('/articles')->name('articles.')->group(function() {

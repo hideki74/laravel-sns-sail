@@ -27,6 +27,11 @@ import { mapState } from 'vuex'
 import draggable from 'vuedraggable';
 
 export default {
+  data() {
+    return {
+      lists: [],
+    }
+  },
   components: {
     ListAdd,
     List,
@@ -41,12 +46,22 @@ export default {
     }
   },
   methods: {
+    init() {
+      this.$store.dispatch('init', { lists: this.lists })
+    },
     movingCard() {
       this.$store.dispatch('updateList', { lists: this.lists })
     },
     movingList() {
       this.$store.dispatch('updateList', { lists: this.lists })
     }
+  },
+  mounted() {
+    axios.post('/cards').then((res) => {
+      this.lists = res.data
+      this.init()
+    })
+    .catch(e => console.log(e));
   }
 }
 </script>
