@@ -21,10 +21,12 @@ class CardController extends Controller
 
     public function updateCards(Request $request, Card $card) {
         try {
-            $user = Card::getUser(Auth::id());
-            $user->cards_json = $request;
-            $card->save();
-            return 'saved!';
+            $user = User::where('id', Auth::id())->get()->first();
+            $card = $user->cards;
+            $card->cards_json = $request->cards_json;
+            $card->user_id = Auth::id();
+            $card->update();
+            return 'saved';
         } catch(Exception $e) {
             return $e;
         }
