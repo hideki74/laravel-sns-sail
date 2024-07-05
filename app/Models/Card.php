@@ -18,4 +18,9 @@ class Card extends Model
         $user = self::where('user_id', $user_id)->get()->first();
         return $user->cards_json;
     }
+
+    public static function getUser($user_id) {
+        $user = self::where('user_id', $user_id)->get()->first();
+        return $user;
+    }
 }

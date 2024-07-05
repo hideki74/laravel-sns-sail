@@ -54,7 +54,8 @@ export const store = createStore({
 })
 
 store.subscribe((mutation, state) => {
-    localStorage.setItem('trello-lists', JSON.stringify(state.lists))
+    axios.put('/cards', state.lists).then(res => console.log(res)).catch(e => console.log(e))
+    //localStorage.setItem('trello-lists', JSON.stringify(state.lists))
 })
   
 export default store
