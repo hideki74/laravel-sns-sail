@@ -4,9 +4,10 @@
       <a href="{{ route('users.show', ['name' => $user->name]) }}" class="text-dark">
         <i class="fas fa-user-circle fa-3x"></i>
       </a>
+      <a href="{{ route('users.cards', ['name' => $user->name]) }}" class="ml-auto btn-sm shadow-none border border-primary p-2 text-dark text-decoration-none"><i class="fas fa-address-card mr-1"></i>{{ $user->name }}のメモカード</a>
       @if( Auth::id() !== $user->id )
         <follow-button
-          class="ml-auto"
+          class="ml-2"
           :initial-is-followed-by='@json($user->isFollowedBy(Auth::user()))'
           :authorized='@json(Auth::check())'
           endpoint="{{ route('users.follow', ['name' => $user->name]) }}"

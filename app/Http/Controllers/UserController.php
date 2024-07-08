@@ -65,4 +65,9 @@ class UserController extends Controller
 
         return view('users.followers', compact('user', 'followers'));
     }
+
+    public function cards(string $name) {
+        $user = User::where('name', $name)->first();
+        return view('users.cards', compact('user'));
+    }
 }
