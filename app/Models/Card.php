@@ -14,9 +14,18 @@ class Card extends Model
         return $this->belongsTo(User::class);
     }
 
-    public static function getCardsJson($user_id) {
-        $user = self::where('user_id', $user_id)->get()->first();
-        return $user->cards_json;
+    public static function getCardsJson($user_id):string {
+        // データベースにカードデータがあった場合それを取得
+        if(self::where('user_id', $user_id)->exists()) {
+            $card = self::where('user_id', $user_id)->get()->first();
+        } else {
+            // なかった場合新規作成
+            $card = new Card();
+            $card->user_id = $user_id;
+            $card->cards_json = "[]";
+            $card->save();
+        }
+        return $card->cards_json;
     }
 
     public static function getUser($user_id) {

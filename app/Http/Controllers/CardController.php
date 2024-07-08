@@ -13,22 +13,19 @@ class CardController extends Controller
     public function index() {
         return view('cards.index');
     }
-
-    public function getJson() {
-        $cards = Card::getCardsJson(Auth::id());
+    
+    // カードのデータをjsonをstringに変換して返す
+    // カードのページを読み込んだとき最初に呼ばれる
+    public function initCards(Request $request):string {
+        $cards = Card::getCardsJson($request->user()->id);
         return $cards;
     }
 
+    // カードの変更を検知した場合に呼ばれる処理
     public function updateCards(Request $request, Card $card) {
-        try {
-            $user = User::where('id', Auth::id())->get()->first();
-            $card = $user->cards;
-            $card->cards_json = $request->cards_json;
-            $card->user_id = Auth::id();
-            $card->update();
-            return 'saved';
-        } catch(Exception $e) {
-            return $e;
-        }
+        $card = Card::where('user_id', $request->user()->id)->get()->first();
+        $card->cards_json = $request->cards_json;
+        $card->save();
+        return 'saved!';
     }
 }
