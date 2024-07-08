@@ -6,6 +6,14 @@
   @include('nav')
   <div class="container">
     @include('users.user')
-    <board>
+    <ul class="nav nav-tabs nav-justified mt-3">
+      <li class="nav-item">
+        <a class="nav-link text-muted"
+          href="">
+          メモカード
+        </a>
+      </li>
+    </ul>
+    <user-board>
   </div>
 @endsection

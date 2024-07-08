@@ -22,6 +22,7 @@ import ArticleBookmark from './components/ArticleBookmark.vue';
 import ArticleTagsInput from './components/ArticleTagsInput.vue'
 import FollowButton from './components/FollowButton.vue'
 import Board from './components/cards/Board.vue'
+import UserBoard from './components/user_cards/UserBoard.vue'
 
 app.component('example-component', ExampleComponent);
 app.component('article-like', ArticleLike);
@@ -29,6 +30,7 @@ app.component('article-tags-input', ArticleTagsInput);
 app.component('follow-button', FollowButton);
 app.component('article-bookmark', ArticleBookmark);
 app.component('board', Board);
+app.component('user-board', UserBoard);
 
 /**
  * The following block of code may be used to automatically register your
