@@ -3,7 +3,6 @@
     <div class="listheader">
       <p class="list-title">{{ title }}</p>
       <p class="list-counter">total: {{ totalCardInList }}</p>
-      <!-- <div class="deletelist" @click="removeList">X</div> -->
     </div>
     <card 
       v-for="(item, index) in cards"
@@ -12,17 +11,14 @@
       :cardIndex="index"
       :listIndex="listIndex"
     />
-  <!-- <card-add :listIndex="listIndex" /> -->
   </div>
 </template>
 
 <script>
-// import CardAdd from './CardAdd.vue'
 import Card from './Card.vue'
 
 export default {
   components: {
-    // CardAdd,
     Card
   },
   props: {
@@ -37,13 +33,6 @@ export default {
     listIndex: {
       type: Number,
       required: true,
-    }
-  },
-  methods: {
-    removeList() {
-      if(confirm('本当にこのリストを削除しますか？')) {
-        this.$store.dispatch('removeList', {listIndex: this.listIndex})
-      }
     }
   },
   computed: {

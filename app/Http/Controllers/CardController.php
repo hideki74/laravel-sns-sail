@@ -17,7 +17,7 @@ class CardController extends Controller
     // カードのデータをjsonをstringに変換して返す
     // カードのページを読み込んだとき最初に呼ばれる
     public function initCards(Request $request):string {
-        $cards = Card::getCardsJson($request->user()->id);
+        $cards = Card::get0rCreateCardsJson($request->user()->id);
         return $cards;
     }
 

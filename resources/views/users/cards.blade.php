@@ -14,6 +14,6 @@
         </a>
       </li>
     </ul>
-    <user-board>
+    <user-board :cards='@json($cards_json)'>
   </div>
 @endsection
