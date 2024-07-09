@@ -6,6 +6,7 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+import { store } from './store';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -20,11 +21,16 @@ import ArticleLike from './components/ArticleLike.vue'
 import ArticleBookmark from './components/ArticleBookmark.vue';
 import ArticleTagsInput from './components/ArticleTagsInput.vue'
 import FollowButton from './components/FollowButton.vue'
+import Board from './components/cards/Board.vue'
+import UserBoard from './components/user_cards/UserBoard.vue'
+
 app.component('example-component', ExampleComponent);
 app.component('article-like', ArticleLike);
 app.component('article-tags-input', ArticleTagsInput);
 app.component('follow-button', FollowButton);
 app.component('article-bookmark', ArticleBookmark);
+app.component('board', Board);
+app.component('user-board', UserBoard);
 
 /**
  * The following block of code may be used to automatically register your
@@ -44,4 +50,4 @@ app.component('article-bookmark', ArticleBookmark);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-app.mount('#app');
+app.use(store).mount('#app');

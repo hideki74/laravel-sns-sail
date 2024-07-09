@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\User;
+use App\Models\Card;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -64,5 +65,11 @@ class UserController extends Controller
         $followers = $user->followers->sortByDesc('created_at') ->load('followers.followers');;
 
         return view('users.followers', compact('user', 'followers'));
+    }
+
+    public function cards(string $name) {
+        $user = User::where('name', $name)->first();
+        $cards_json = Card::get0rCreateCardsJson($user->id);
+        return view('users.cards', compact('user', 'cards_json'));
     }
 }

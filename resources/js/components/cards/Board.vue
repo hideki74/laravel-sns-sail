@@ -1,0 +1,110 @@
+<template>
+  <div>
+    <main>
+      <p class="info-line">All: {{ totalCardCount }} tasks</p>
+      <div class="list-index">
+        <draggable :list="lists" item-key="item" @end="movingList" class="list-index">
+          <template #item="{ element, index }">
+            <list
+              :key="element.id"
+              :title="element.title"
+              :cards="element.cards"
+              :listIndex="index"
+              @change="movingCard"
+            />
+          </template>
+        </draggable>
+        <list-add />
+      </div>
+    </main>
+  </div>
+</template>
+  
+<script>
+import ListAdd from './ListAdd.vue'
+import List from './List.vue'
+import { mapState } from 'vuex'
+import draggable from 'vuedraggable';
+
+export default {
+  data() {
+    return {
+      lists: [],
+    }
+  },
+  components: {
+    ListAdd,
+    List,
+    draggable
+  },
+  computed: {
+    ...mapState([
+      'lists'
+    ]),
+    totalCardCount() {
+      return this.$store.getters.totalCardCount
+    }
+  },
+  methods: {
+    init() {
+      this.$store.dispatch('init', { lists: this.lists })
+    },
+    movingCard() {
+      this.$store.dispatch('updateList', { lists: this.lists })
+    },
+    movingList() {
+      this.$store.dispatch('updateList', { lists: this.lists })
+    }
+  },
+  mounted() {
+    axios.post('/cards').then(res => {
+      this.lists = res.data
+      this.init()
+    })
+    .catch(e => console.log(e));
+  }
+}
+</script>
+
+<style scoped>
+/* html {
+  font-family: 'Avenir', Helvetica, Arial, 'system-ui', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+}
+
+header {
+  height: 70px;
+  color: white;
+  font-style: italic;
+  font-size: 40px;
+  text-align: left;
+  padding: 20px;
+}
+
+main {
+  padding: 0 10px;
+  width: calc(100% - 40px);
+  height: 100%;
+}
+
+.body {
+  font-size: 18px;
+  width: 100%;
+  word-wrap: break-word;
+} */
+
+.info-line {
+  margin: 20px;
+  font-size: 20px;
+}
+
+.list-index {
+  display: flex;
+}
+
+</style>
