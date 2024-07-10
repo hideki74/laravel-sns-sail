@@ -16,23 +16,21 @@ import { store } from './store';
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
 import ArticleLike from './components/ArticleLike.vue'
 import ArticleBookmark from './components/ArticleBookmark.vue';
 import ArticleTagsInput from './components/ArticleTagsInput.vue'
 import FollowButton from './components/FollowButton.vue'
 import Board from './components/cards/Board.vue'
 import UserBoard from './components/user_cards/UserBoard.vue'
-import Draft from './components/Draft.vue'
+import DraftList from './components/DraftList.vue'
 
-app.component('example-component', ExampleComponent);
 app.component('article-like', ArticleLike);
 app.component('article-tags-input', ArticleTagsInput);
 app.component('follow-button', FollowButton);
 app.component('article-bookmark', ArticleBookmark);
 app.component('board', Board);
 app.component('user-board', UserBoard);
-app.component('draft', Draft)
+app.component('draft-list', DraftList);
 
 /**
  * The following block of code may be used to automatically register your

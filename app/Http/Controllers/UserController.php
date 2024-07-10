@@ -72,4 +72,10 @@ class UserController extends Controller
         $cards_json = Card::get0rCreateCardsJson($user->id);
         return view('users.cards', compact('user', 'cards_json'));
     }
+
+    public function getDrafts(string $name) {
+        $user = User::where('name', $name)->first();
+        $drafts = $user->drafts;
+        return $drafts;
+    }
 }

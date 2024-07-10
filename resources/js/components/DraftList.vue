@@ -13,36 +13,22 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="card">
+        <div class="card" v-for="(draft, index) in drafts" :key="draft.id">
           <div class="card-header d-flex justify-content-between">
-              <p>下書き1</p>
+              <p>下書き{{ index+1 }}</p>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="card-body d-flex justify-content-between">
             <div class="draft">
-              <h5 class="card-title">タイトル</h5>
-              <p class="card-text">本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文</p>
+              <h5 class="card-title">{{ draft.title }}</h5>
+              <p class="card-text">{{ draft.body }}</p>
             </div>
             <div class="ml-auto">
               <a href="#" class="btn btn-primary item">適用</a>
             </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header d-flex justify-content-between">
-              <p>下書き2</p>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="card-body d-flex justify-content-between">
-            <div class="draft">
-              <h5 class="card-title">タイトル</h5>
-              <p class="card-text">本文本文本文</p>
-            </div>
-            <div class="apply-btn">
-              <a href="#" class="btn btn-primary item">適用</a>
-            </div>
-          </div>
-        </div>
+        <p v-if="drafts.length === 0">下書きがありません。</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">戻る</button>
@@ -56,16 +42,16 @@
   export default {
     data() {
       return {
-        showContent: false
+        drafts: [],
       }
     },
-    methods: {
-      openModal() {
-        this.showContent = true;
-      },
-      closeModal() {
-        this.showContent = false;
-      }
+    props: {
+      user_name: String,
+    },
+    mounted() {
+      // ユーザーごとの下書きを取るURLを作成
+      let url = '/users/' + this.user_name + '/drafts';
+      axios.post(url).then(response => this.drafts = response.data).catch(e => console.log(e));
     }
   }
 </script>

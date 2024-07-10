@@ -42,12 +42,13 @@ class ArticleController extends Controller
         return view('articles.bookmarks', compact('articles', 'sort_jp'));
     }
 
-    public function create() {
+    public function create(Request $request) {
+        $user = User::where('id', Auth::id())->first();
         $allTagNames = Tag::all()->map(function ($tag) {
             return ['text' => $tag->name];
         });
 
-        return view('articles.create', compact('allTagNames'));
+        return view('articles.create', compact('user', 'allTagNames'));
     }
 
     public function store(ArticleRequest $request, Article $article) {

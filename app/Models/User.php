@@ -71,6 +71,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Article::class, 'bookmarks')->withTimestamps();
     }
 
+    public function drafts(): HasMany {
+        return $this->HasMany(Draft::class);
+    }
+
     public function isFollowedBy(?User $user): bool {
         return $user ? (bool)$this->followers->where('id', $user->id)->count() : false;
     }
