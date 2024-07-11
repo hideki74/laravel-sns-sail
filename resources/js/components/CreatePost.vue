@@ -1,10 +1,23 @@
 <template>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<div class="md-form">
+  <label>タイトル</label>
+  <input type="text" name="title" class="form-control" required value="" v-model="titleInput">
+</div>
+<div class="form-group">
+  <label></label>
+  <textarea name="body" required class="form-control" rows="16" placeholder="本文" v-model="bodyInput"></textarea>
+</div>
+<button type="submit" class="btn blue-gradient btn-block">投稿する</button>
+  
+<!-- ボタン -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="getDrafts">
   下書き一覧
 </button>
+<button type="button" class="btn btn-secondary" @click="saveDrafts">
+  下書き保存
+</button>
 
-<!-- Modal -->
+<!-- 下書き一覧(モーダル) -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -42,16 +55,34 @@
   export default {
     data() {
       return {
+        axiosUrl: '/users/' + this.user_name + '/drafts',
         drafts: [],
+        titleInput: "",
+        bodyInput: "",
       }
     },
     props: {
       user_name: String,
     },
     mounted() {
-      // ユーザーごとの下書きを取るURLを作成
-      let url = '/users/' + this.user_name + '/drafts';
-      axios.post(url).then(response => this.drafts = response.data).catch(e => console.log(e));
+      // ページ読み込み時に下書き一覧を事前に読み込んでおく
+      axios.get(this.axiosUrl).then(res => this.drafts = res.data).catch(e => console.log(e));
+    },
+    methods: {
+      getDrafts() {
+        axios.get(this.axiosUrl).then(res => this.drafts = res.data).catch(e => console.log(e));
+      },
+      saveDrafts() {
+        axios.post(this.axiosUrl, {
+          // urlにタイトルと本文を送信
+          title: this.titleInput,
+          body: this.bodyInput,
+        }).then(res => {
+          // 下書きをセーブしたらタイトルと本文をリセットする
+          this.titleInput = "";
+          this.bodyInput = "";
+        }).catch(e => console.log(e));
+      }
     }
   }
 </script>

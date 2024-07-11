@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Draft;
 use App\Models\User;
 use App\Models\Card;
 use Illuminate\Http\Request;
@@ -73,9 +74,19 @@ class UserController extends Controller
         return view('users.cards', compact('user', 'cards_json'));
     }
 
+    // 下書きの読み込み
     public function getDrafts(string $name) {
         $user = User::where('name', $name)->first();
         $drafts = $user->drafts;
         return $drafts;
+    }
+
+    // 下書きの保存
+    public function saveDrafts(Request $request, string $name) {
+        $draft = new Draft();
+        $draft->user_id = $request->user()->id;
+        $draft->title = $request->title;
+        $draft->body = $request->body;
+        $draft->save();
     }
 }

@@ -37,7 +37,8 @@ Route::prefix('users')->name('users.')->group( function (){
     Route::middleware('auth')->group(function () {
         Route::put('/{name}/follow', [UserController::class, 'follow'])->name('follow');
         Route::delete('/{name}/follow', [UserController::class, 'unfollow'])->name('unfollow');
-        Route::post('/{name}/drafts', [UserController::class, 'getDrafts'])->name('drafts');
+        Route::get('/{name}/drafts', [UserController::class, 'getDrafts'])->name('getDrafts');
+        Route::post('/{name}/drafts', [UserController::class, 'saveDrafts'])->name('saveDrafts');
     });
 });
 
