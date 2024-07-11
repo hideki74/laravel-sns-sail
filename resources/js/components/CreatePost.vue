@@ -27,10 +27,6 @@
       </div>
       <div class="modal-body">
         <div class="card" v-for="(draft, index) in drafts" :key="draft.id">
-          <div class="card-header d-flex justify-content-between">
-              <p>下書き{{ index+1 }}</p>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
           <div class="card-body d-flex justify-content-between">
             <div class="draft">
               <h5 class="card-title">{{ draft.title }}</h5>
@@ -39,6 +35,7 @@
             <div class="ml-auto">
               <a href="#" class="btn btn-primary item">適用</a>
             </div>
+              <button type="button" class="btn-close" @click="deleteDrafts(draft.id)"></button>
           </div>
         </div>
         <p v-if="drafts.length === 0">下書きがありません。</p>
@@ -54,7 +51,7 @@
 <div class="position-fixed p-3 top-0 end-0" id="toastPlacement">
   <div ref="save" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-body">
-      下書きを保存しました。
+      {{ messageText }}
       <button type="button" class="ml-auto mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -72,6 +69,7 @@
         drafts: [],
         titleInput: "",
         bodyInput: "",
+        messageText: "",
       }
     },
     props: {
@@ -94,10 +92,16 @@
           // 下書きをセーブしたらタイトルと本文をリセットする
           this.titleInput = "";
           this.bodyInput = "";
-          this.showMessage();
+          this.showMessage("下書きを保存しました。");
         }).catch(e => console.log(e));
       },
-      showMessage() {
+      deleteDrafts(draftId) {
+        axios.delete(this.axiosUrl + "?id=" + draftId).then(res => this.showMessage("下書きを削除しました。")).catch(e => console.log(e));
+        // 新しく下書きを読み込みしなおし、削除したものを非表示にする
+        this.getDrafts();
+      },
+      showMessage(messageText) {
+        this.messageText = messageText;
         let saveMessage = new bootstrap.Toast(this.$refs.save, {
           delay: 4000
         });

@@ -39,6 +39,7 @@ Route::prefix('users')->name('users.')->group( function (){
         Route::delete('/{name}/follow', [UserController::class, 'unfollow'])->name('unfollow');
         Route::get('/{name}/drafts', [UserController::class, 'getDrafts'])->name('getDrafts');
         Route::post('/{name}/drafts', [UserController::class, 'saveDrafts'])->name('saveDrafts');
+        Route::delete('/{name}/drafts', [UserController::class, 'deleteDrafts'])->name('deleteDrafts');
     });
 });
 

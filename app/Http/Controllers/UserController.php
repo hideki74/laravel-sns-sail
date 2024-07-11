@@ -89,4 +89,14 @@ class UserController extends Controller
         $draft->body = $request->body;
         $draft->save();
     }
+
+    public function deleteDrafts(Request $request) {
+        $draft = Draft::find($request->id);
+        // もしユーザーと下書きユーザーが同じだったら削除成功
+        if ($draft->user_id === $request->user()->id) {
+            $draft->delete();
+        } else {
+            return 'delete failed';
+        }
+    }
 }
