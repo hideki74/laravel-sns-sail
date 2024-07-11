@@ -49,6 +49,19 @@
     </div>
   </div>
 </div>
+
+<!-- 下書きが保存されたら表示するメッセージボックス -->
+<div class="position-fixed p-3 top-0 end-0" id="toastPlacement">
+  <div ref="save" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+      下書きを保存しました。
+      <button type="button" class="ml-auto mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 </template>
 
 <script>
@@ -81,7 +94,14 @@
           // 下書きをセーブしたらタイトルと本文をリセットする
           this.titleInput = "";
           this.bodyInput = "";
+          this.showMessage();
         }).catch(e => console.log(e));
+      },
+      showMessage() {
+        let saveMessage = new bootstrap.Toast(this.$refs.save, {
+          delay: 4000
+        });
+        saveMessage.show();
       }
     }
   }
