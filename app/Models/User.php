@@ -51,8 +51,8 @@ class User extends Authenticatable
         return $this->hasMany(Article::class);
     }
 
-    public function cards(): HasOne {
-        return $this->hasOne(Card::class);
+    public function card_lists(): HasMany {
+        return $this->hasMany(CardList::class);
     }
 
     public function followers(): BelongsToMany {

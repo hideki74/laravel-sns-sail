@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
-            $table->json('cards_json')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->text('card_body');
+            $table->unsignedBigInteger('list_id');
+            $table->foreign('list_id')->references('id')->on('card_lists')->onDelete('cascade');
             $table->timestamps();
         });
     }
