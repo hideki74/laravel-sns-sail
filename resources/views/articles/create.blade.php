@@ -13,9 +13,10 @@
             @include('error_card_list')
             <div class="card-text">
               <form method="POST" action="{{ route('articles.store') }}">
-                @include('articles.form')
-                <button type="submit" class="btn blue-gradient btn-block">投稿する</button>
+                @csrf
+                <create-post :user_name='@json($user->name)'>
               </form>
+              <draft>
             </div>
           </div>
         </div>
