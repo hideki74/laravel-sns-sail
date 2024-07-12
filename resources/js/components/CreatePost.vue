@@ -33,9 +33,9 @@
               <p class="card-text">{{ draft.body }}</p>
             </div>
             <div class="ml-auto">
-              <a href="#" class="btn btn-primary item">適用</a>
+              <a href="#" class="btn btn-primary item" data-bs-dismiss="modal" @click="displayDrafts(draft.title, draft.body)">適用</a>
             </div>
-              <button type="button" class="btn-close" @click="deleteDrafts(draft.id)"></button>
+            <button type="button" class="btn-close" @click="deleteDrafts(draft.id)"></button>
           </div>
         </div>
         <p v-if="drafts.length === 0">下書きがありません。</p>
@@ -94,6 +94,10 @@
           this.bodyInput = "";
           this.showMessage("下書きを保存しました。");
         }).catch(e => console.log(e));
+      },
+      displayDrafts(title, body) {
+        this.titleInput = title;
+        this.bodyInput = body;
       },
       deleteDrafts(draftId) {
         axios.delete(this.axiosUrl + "?id=" + draftId).then(res => this.showMessage("下書きを削除しました。")).catch(e => console.log(e));
