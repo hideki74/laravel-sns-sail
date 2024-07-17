@@ -13,18 +13,12 @@ class Card extends Model
     public function cardList(): BelongsTo {
         return $this->belongsTo(CardList::class);
     }
-
-    // public static function get0rCreateCardsJson($user_id):string {
-    //     // データベースにカードデータがあった場合それを取得
-    //     if(self::where('user_id', $user_id)->exists()) {
-    //         $card = self::where('user_id', $user_id)->get()->first();
-    //     } else {
-    //         // なかった場合新規作成
-    //         $card = new Card();
-    //         $card->user_id = $user_id;
-    //         $card->cards_json = "[]";
-    //         $card->save();
-    //     }
-    //     return $card->cards_json;
-    // }
+    
+    // カードを新規作成
+    public static function createCard(int $list_id, array $card) {
+        $new_card = new Card();
+        $new_card->card_body = $card['body'];
+        $new_card->list_id = $list_id;
+        $new_card->save();
+    }
 }

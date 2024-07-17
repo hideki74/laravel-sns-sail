@@ -18,20 +18,17 @@ class CardController extends Controller
     }
     
     // post
-    // カードのデータをjsonをstringに変換して返す
+    // カードのデータをDBから読み込み、配列をjsonにして返す
     // カードのページを読み込んだとき最初に呼ばれる
     public function initCards(Request $request){
-        $cards = CardList::createCardJson($request->user()->id);
-        return $cards;
+        $cards = CardList::loadLists($request->user()->id);
+        return json_encode($cards);
     }
 
     // put
     // カードの変更を検知した場合に呼ばれる処理
-    public function updateCards(Request $request, Card $card) {
-        // $card = Card::where('user_id', $request->user()->id)->get()->first();
-        var_dump($request->cards_json);
-        // $card->cards_json = $request->cards_json;
-        // $card->save();
+    public function updateCards(Request $request) {
+        CardList::updateLists($request->user()->id, $request->cards_json);
         return 'saved!';
     }
 }
