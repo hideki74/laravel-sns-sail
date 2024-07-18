@@ -15,10 +15,12 @@ class Card extends Model
     }
     
     // カードを新規作成
-    public static function createCard(int $list_id, array $card) {
+    public static function createCard(string $body, int $user_id, int $list_id, int $order_num) {
         $new_card = new Card();
-        $new_card->card_body = $card['body'];
+        $new_card->card_body = $body;
+        $new_card->user_id = $user_id;
         $new_card->list_id = $list_id;
+        $new_card->order = $order_num;
         $new_card->save();
     }
 }

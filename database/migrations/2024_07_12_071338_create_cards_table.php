@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->text('card_body');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('list_id');
             $table->foreign('list_id')->references('id')->on('card_lists')->onDelete('cascade');
+            $table->unsignedInteger('order');
             $table->timestamps();
         });
     }

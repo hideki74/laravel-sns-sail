@@ -8,17 +8,23 @@ export const store = createStore({
     init(state, payload) {
         state.lists = payload.lists;
     },
+    // リスト追加
     addList(state, payload) {
-        state.lists.push({ title: payload.title, cards:[] })
+        state.lists.push({ title: payload.title, cards:[] });
+        axios.post('/memoCards/list', payload).then().catch(e => console.log(e));
     },
+    // リスト削除
     removeList(state, payload) {
         state.lists.splice(payload.listIndex, 1);
     },
+    // カード追加
     addCardToList(state, payload) {
         state.lists[payload.listIndex].cards.push({ body: payload.body });
     },
+    // カード削除
     removeCardFromList(state, payload) {
-        state.lists[payload.listIndex].cards.splice(payload.cardIndex, 1)
+        state.lists[payload.listIndex].cards.splice(payload.cardIndex, 1);
+        axios.post('/memoCards/list', payload).then(res => console.log(res)).catch(e => console.log(e));
     },
     updateList(state, payload) {
         state.lists = payload.lists
@@ -29,7 +35,7 @@ export const store = createStore({
         context.commit('init', payload);
     },
     addList(context, payload) {
-        context.commit('addList', payload)
+        context.commit('addList', payload);
     },
     removeList(context, payload) {
         context.commit('removeList', payload);
@@ -53,10 +59,10 @@ export const store = createStore({
   }
 })
 
-store.subscribe((mutation, state) => {
-    axios.put('/cards', {
-        cards_json: state.lists
-    }).then().catch(e => console.log(e))
-})
+// store.subscribe((mutation, state) => {
+//     axios.put('/memoCards', {
+//         cards_json: state.lists
+//     }).then(res => state.lists = res.data).catch(e => console.log(e))
+// })
   
 export default store

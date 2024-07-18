@@ -57,7 +57,7 @@ export default {
     }
   },
   mounted() {
-    axios.post('/cards').then(res => {
+    axios.post('/memoCards').then(res => {
       this.lists = res.data
       this.init()
     })

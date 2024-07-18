@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CardController;
+use App\Http\Controllers\MemoCardController;
 use App\Http\Controllers\RankingController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
@@ -16,9 +16,15 @@ Route::get('/', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/following', [ArticleController::class, 'following'])->name('articles.following')->middleware('auth');
 Route::get('/bookmarks', [ArticleController::class, 'bookmarks'])->name('articles.bookmarks')->middleware('auth');
-Route::get('/cards', [CardController::class, 'index'])->name('cards.index')->middleware('auth');
-Route::post('/cards', [CardController::class, 'initCards'])->name('cards.initCards')->middleware('auth');
-Route::put('/cards', [CardController::class, 'updateCards'])->name('cards.updateCards')->middleware('auth');
+Route::prefix('memoCards')->name('memoCards.')->middleware('auth')->group(function() {
+    Route::get('/', [MemoCardController::class, 'index'])->name('index');
+    Route::post('/', [MemoCardController::class, 'initCards'])->name('initCards');
+    Route::put('/', [MemoCardController::class, 'updateCards'])->name('updateCards');
+    Route::post('/list', [MemoCardController::class, 'createList']);
+    Route::delete('/list', [MemoCardController::class, 'deleteList']);
+    Route::post('/card', [MemoCardController::class, 'createCard']);
+    Route::delete('/card', [MemoCardController::class, 'deleteCard']);
+});
 Route::resource('/articles', ArticleController::class)->except(['index', 'show'])->middleware('auth');
 Route::resource('/articles',  ArticleController::class)->only(['show']);
 Route::prefix('/articles')->name('articles.')->group(function() {

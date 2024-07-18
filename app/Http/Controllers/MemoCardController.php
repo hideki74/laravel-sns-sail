@@ -10,7 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CardController extends Controller
+class MemoCardController extends Controller
 {
     // get
     public function index() {
@@ -27,8 +27,27 @@ class CardController extends Controller
 
     // put
     // カードの変更を検知した場合に呼ばれる処理
+    // 新しいメモカード情報をDBに保存すると同時に取得する
     public function updateCards(Request $request) {
-        CardList::updateLists($request->user()->id, $request->cards_json);
-        return 'saved!';
+        CardList::updateLists($request->cards_json, $request->user()->id);
+        $cards = CardList::loadLists($request->user()->id);
+        return json_encode($cards);
+    }
+
+    public function createList(Request $request) {
+        CardList::createList($request->title, $request->user()->id, $request)
+    }
+
+    public function deleteList(Request $request) {
+    }
+
+    public function createCard(Request $request) {
+
+    }
+
+    public function deleteCard(Request $request) {
+        Debugbar::info($request->listIndex);
+        Debugbar::info($request->cardIndex);
+        return [$request->listIndex, $request->cardIndex];
     }
 }

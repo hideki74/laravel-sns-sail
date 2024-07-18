@@ -37,7 +37,7 @@
 
     @auth
     <li class="nav-item">
-      <a class="nav-link" href="{{ route('cards.index') }}"><i class="fas fa-address-card mr-1"></i>メモカード</a>
+      <a class="nav-link" href="{{ route('memoCards.index') }}"><i class="fas fa-address-card mr-1"></i>メモカード</a>
     </li>
     @endauth
     
